@@ -7,7 +7,7 @@
     <uses-feature android:name="android.hardware.camera.front" android:required="false" />  
     <application
       android:name=".MainApplication"
-      android:label="@string/app_name"
+      android:label="Brazukas"
       android:icon="@mipmap/ic_launcher"
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
