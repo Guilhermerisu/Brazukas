@@ -82,7 +82,7 @@ const SearchScreen = ({navigation}) => {
       />
       <FlatList
         data={searchUsers}
-        renderItem={SearchUserItem}
+        renderItem={({item}) => <SearchUserItem item={item} />}
         keyExtractor={item => item.id}
       />
     </SafeAreaView>

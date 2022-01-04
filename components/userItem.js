@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   View,
   Text,
@@ -8,10 +8,20 @@ import {
   ScrollView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {AuthContext} from '../navigation/AuthProvider';
 
 export default function SearchUserItem({item}) {
+  const navigation = useNavigation();
+  const {user} = useContext(AuthContext);
+
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() =>
+        navigation.navigate('ProfileOther', {
+          userId: item.id,
+        })
+      }>
       <Text style={styles.text}>{item.nome}</Text>
       <Image style={styles.searchImg} source={{uri: item.userImg}} />
     </TouchableOpacity>

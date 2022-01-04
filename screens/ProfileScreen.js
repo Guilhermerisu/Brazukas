@@ -16,7 +16,7 @@ import firestore from '@react-native-firebase/firestore';
 import {AuthContext} from '../navigation/AuthProvider';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 
-const ProfileScreen = ({navigation}) => {
+const ProfileScreen = ({navigation, route}) => {
   const [userData, setUserData] = useState(null);
   const {user, logout} = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
@@ -24,7 +24,7 @@ const ProfileScreen = ({navigation}) => {
   const getUser = async () => {
     const currentUser = await firestore()
       .collection('users')
-      .doc(user.uid)
+      .doc(route.params ? route.params.userId : user.uid)
       .get()
       .then(documentSnapshot => {
         if (documentSnapshot.exists) {

@@ -62,6 +62,24 @@ const FeedStack = ({navigation}) => (
       component={SearchScreen}
       options={{headerShown: false}}
     />
+    <Stack.Screen
+      name="ProfileOther"
+      component={ProfileScreen}
+      options={{
+        title: '',
+        headerStyle: {
+          backgroundColor: '#017970',
+          shadowColor: '#017970',
+          height: 45,
+        },
+        headerBackTitleVisible: false,
+        headerBackImage: () => (
+          <View style={{marginLeft: 15}}>
+            <Ionicons name="arrow-back" size={25} color="#009387" />
+          </View>
+        ),
+      }}
+    />
   </Stack.Navigator>
 );
 
