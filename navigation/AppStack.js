@@ -75,7 +75,7 @@ const FeedStack = ({navigation}) => (
         headerBackTitleVisible: false,
         headerBackImage: () => (
           <View style={{marginLeft: 15}}>
-            <Ionicons name="arrow-back" size={25} color="#009387" />
+            <Ionicons name="arrow-back" size={25} color="#fff" />
           </View>
         ),
       }}
