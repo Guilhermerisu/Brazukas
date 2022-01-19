@@ -16,6 +16,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import CustomDrawer from '../components/CustomDrawer';
 import SearchScreen from '../screens/SearchScreen';
 import RegistroGeral from '../screens/Registro/Registro';
+import AddPostScreen from '../screens/AddPostScreen';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -34,14 +35,25 @@ const FeedStack = ({navigation}) => (
         },
         headerBackTitleVisible: false,
         headerRight: () => (
-          <View style={{marginRight: 15}}>
-            <FontAwesome5
-              name="search"
-              size={22}
-              backgroundColor="transparent"
-              color="#009387"
-              onPress={() => navigation.navigate('SearchStack')}
-            />
+          <View style={{flexDirection: 'row'}}>
+            <View style={{marginRight: 18}}>
+              <FontAwesome5
+                name="plus"
+                size={22}
+                backgroundColor="transparent"
+                color="#009387"
+                onPress={() => navigation.navigate('AddPostStack')}
+              />
+            </View>
+            <View style={{marginRight: 18}}>
+              <FontAwesome5
+                name="search"
+                size={22}
+                backgroundColor="transparent"
+                color="#009387"
+                onPress={() => navigation.navigate('SearchStack')}
+              />
+            </View>
           </View>
         ),
         headerLeft: () => (
@@ -61,6 +73,31 @@ const FeedStack = ({navigation}) => (
       name="SearchStack"
       component={SearchScreen}
       options={{headerShown: false}}
+    />
+    <Stack.Screen
+      name="AddPostStack"
+      component={AddPostScreen}
+      options={{
+        title: '',
+        headerStyle: {
+          backgroundColor: '#017970',
+          shadowColor: '#017970',
+          height: 45,
+        },
+        headerBackTitleVisible: false,
+        headerBackImage: () => (
+          <View style={{marginLeft: 10}}>
+            <Ionicons name="arrow-back" size={25} color="#fff" />
+          </View>
+        ),
+        headerRight: () => (
+          <View style={{marginRight: 20}}>
+            <TouchableOpacity>
+              <Text style={{fontWeight: 'bold', color: '#fff'}}>Postar</Text>
+            </TouchableOpacity>
+          </View>
+        ),
+      }}
     />
     <Stack.Screen
       name="ProfileOther"
