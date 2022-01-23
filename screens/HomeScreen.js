@@ -7,51 +7,124 @@ import {
   RefreshControl,
   ScrollView,
   FlatList,
+  Alert,
 } from 'react-native';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import PostCard from '../components/PostCard';
 import {AddPost, Container} from '../styles/HomeStyles';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-
-const Posts = [
-  {
-    id: '1',
-    userName: 'Feer',
-    userImg: require('../assets/transferir.png'),
-    postTime: 'há 4 minutos',
-    post: 'First Post',
-    postImg: require('../assets/atleta.png'),
-    liked: true,
-    likes: '14',
-    comments: '5',
-  },
-  {
-    id: '2',
-    userName: 'Lattice',
-    userImg: require('../assets/transferir.jpg'),
-    postTime: 'há 2 horas',
-    post: 'First Post actually!',
-    postImg: 'none',
-    liked: false,
-    likes: '0',
-    comments: '0',
-  },
-];
+import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 
 const HomeScreen = ({navigation}) => {
-  const [atualizando, setAtualizando] = useState(false);
-  function aoAtualizar() {
-    setAtualizando(true);
-    setTimeout(() => {
-      setAtualizando(false);
-    }, 1000);
-  }
+  const [posts, setPosts] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [load, setLoad] = useState(true);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const list = [];
+        await firestore()
+          .collection('posts')
+          .orderBy('postTime', 'desc')
+          .get()
+          .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+              const {userId, post, postImg, postTime, likes, comments} =
+                doc.data();
+              list.push({
+                id: doc.id,
+                userId,
+                postTime: postTime,
+                post,
+                postImg,
+                liked: false,
+                likes,
+                comments,
+              });
+            });
+          });
+
+        setPosts(list);
+
+        if (loading) {
+          setLoading(false);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchPosts();
+    navigation.addListener('state', () => setLoad(!load));
+  }, [navigation, load]);
+
+  const handleDelete = postId => {
+    Alert.alert(
+      'Deletar Post',
+      'Tem certeza?',
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+        },
+        {
+          text: 'Confirmar',
+          onPress: () => deletePost(postId),
+        },
+      ],
+      {cancelable: false},
+    );
+  };
+
+  const deletePost = postId => {
+    firestore()
+      .collection('posts')
+      .doc(postId)
+      .get()
+      .then(documentSnapshot => {
+        if (documentSnapshot.exists) {
+          const {postImg} = documentSnapshot.data();
+
+          if (postImg != null) {
+            const storageRef = storage().refFromURL(postImg);
+            const imageRef = storage().ref(storageRef.fullPath);
+
+            imageRef
+              .delete()
+              .then(() => {
+                deleteFirestoreData(postId);
+              })
+              .catch(e => {
+                console.log(e);
+              });
+          } else {
+            deleteFirestoreData(postId);
+          }
+        }
+      });
+  };
+
+  const deleteFirestoreData = postId => {
+    firestore()
+      .collection('posts')
+      .doc(postId)
+      .delete()
+      .then(() => {
+        Alert.alert('Post Deletado!', 'Seu post foi deletado com sucesso!', [
+          {
+            onPress: () => navigation.navigate('Inicio'),
+          },
+        ]);
+      });
+  };
 
   return (
     <Container>
       <FlatList
-        data={Posts}
-        renderItem={({item}) => <PostCard item={item} />}
+        data={posts}
+        renderItem={({item}) => (
+          <PostCard item={item} onDelete={handleDelete} />
+        )}
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
       />
@@ -60,8 +133,3 @@ const HomeScreen = ({navigation}) => {
 };
 
 export default HomeScreen;
-
-/*   <ScrollView  refreshControl={
-        <RefreshControl refreshing={atualizando} onRefresh={aoAtualizar} />>
-
-    </ScrollView> */

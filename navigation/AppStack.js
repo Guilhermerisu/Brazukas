@@ -85,18 +85,7 @@ const FeedStack = ({navigation}) => (
           height: 45,
         },
         headerBackTitleVisible: false,
-        headerBackImage: () => (
-          <View style={{marginLeft: 10}}>
-            <Ionicons name="arrow-back" size={25} color="#fff" />
-          </View>
-        ),
-        headerRight: () => (
-          <View style={{marginRight: 20}}>
-            <TouchableOpacity>
-              <Text style={{fontWeight: 'bold', color: '#fff'}}>Postar</Text>
-            </TouchableOpacity>
-          </View>
-        ),
+        headerBackImage: () => <View style={{marginLeft: 10}}></View>,
       }}
     />
     <Stack.Screen

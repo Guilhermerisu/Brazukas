@@ -27,6 +27,7 @@
     "feather-icons": "^4.28.0",
     "firebase": "^9.5.0",
     "lodash.isnil": "^4.0.0",
+    "moment": "^2.29.1",
     "native-base": "2.15.2",
     "react": "17.0.2",
     "react-native": "0.65.1",
