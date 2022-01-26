@@ -19,9 +19,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {AuthContext} from '../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import moment from 'moment';
+import 'moment/locale/pt-br';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const PostCard = ({item, onDelete}) => {
+const PostCard = ({item, onDelete, onPress}) => {
   const {user, logout} = useContext(AuthContext);
   const [userData, setUserData] = useState(null);
 
@@ -58,15 +59,12 @@ const PostCard = ({item, onDelete}) => {
       <UserInfo>
         <UserImg
           source={{
-            uri: userData
-              ? userData.userImg ||
-                'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg'
-              : 'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg',
+            uri: userData ? userData.userImg || null : null,
           }}
         />
         <UserInfoText>
-          <TouchableOpacity>
-            <UserName>{userData ? userData.nome || 'Test' : 'Test'} </UserName>
+          <TouchableOpacity onPress={onPress}>
+            <UserName>{userData ? userData.nome || null : null} </UserName>
           </TouchableOpacity>
           <PostTime>{moment(item.postTime.toDate()).fromNow()}</PostTime>
         </UserInfoText>

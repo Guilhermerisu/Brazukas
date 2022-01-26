@@ -232,11 +232,11 @@ const AppStack = () => {
         }}
       />
       <Drawer.Screen
-        name="Configurações"
+        name="Torneios"
         component={ProfileStack}
         options={{
           drawerIcon: ({color}) => (
-            <Ionicons name="settings-outline" size={22} color={color} />
+            <Ionicons name="md-trophy-outline" size={22} color={color} />
           ),
         }}
       />

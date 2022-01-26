@@ -113,7 +113,7 @@ const ProfileScreen = ({navigation, route}) => {
                   source={require('../assets/phot-icon.png')}
                   style={{height: 48, width: 48, marginTop: 7}}
                 />
-                <Text style={{marginTop: 8, fontWeight: '600'}}>Fotos</Text>
+                <Text style={{marginTop: 8, fontWeight: '600'}}>Posts</Text>
               </View>
             </TouchableOpacity>
           </View>
