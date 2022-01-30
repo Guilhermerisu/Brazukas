@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect, useMemo} from 'react';
 import {
   Container,
   Card,
@@ -21,22 +21,89 @@ import firestore from '@react-native-firebase/firestore';
 import moment from 'moment';
 import 'moment/locale/pt-br';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {throttle} from 'throttle-debounce';
 
 const PostCard = ({item, onDelete, onPress}) => {
   const {user, logout} = useContext(AuthContext);
   const [userData, setUserData] = useState(null);
+  const [load, setLoad] = useState(true);
 
-  let likeIcon = item.liked ? 'heart' : 'heart-outline';
-  let likeIconColor = item.liked ? '#017970' : '#333';
+  const [currentLikeState, setCurrentLikeState] = useState({
+    state: false,
+    counter: item.likes,
+  });
+
+  let likeIcon = currentLikeState.state ? 'heart' : 'heart-outline';
+  let likeIconColor = currentLikeState.state ? '#017970' : '#333';
   let commentText;
 
   if (item.comments == 1) {
     commentText = '1 Comentário';
-  } else if (item.likes > 1) {
-    commentText = item.likes + ' Comentários ';
+  } else if (item.comments > 1) {
+    commentText = item.comments + ' Comentários ';
   } else {
     commentText = 'Comentar';
   }
+
+  useEffect(postId => {
+    getLikeById(item.id, user.uid).then(res => {
+      setCurrentLikeState({
+        ...currentLikeState,
+        state: res,
+      });
+    });
+  }, []);
+
+  const handleUpdateLike = useMemo(
+    () =>
+      throttle(500, true, currentLikeStateInst => {
+        setCurrentLikeState({
+          state: !currentLikeStateInst.state,
+          counter:
+            currentLikeStateInst.counter +
+            (currentLikeStateInst.state ? -1 : 1),
+        });
+        updateLike(item.id, user.uid, currentLikeStateInst.state);
+      }),
+    [],
+  );
+
+  const getLikeById = postId =>
+    new Promise((resolve, reject) => {
+      firestore()
+        .collection('posts')
+        .doc(item.id)
+        .collection('likes')
+        .doc(user.uid)
+        .get()
+        .then(res => resolve(res.exists));
+    });
+
+  const updateLike = async (postId, uid, currentLikeState) => {
+    if (currentLikeState) {
+      firestore()
+        .collection('posts')
+        .doc(item.id)
+        .update({likes: firestore.FieldValue.increment(-1)});
+      firestore()
+        .collection('posts')
+        .doc(item.id)
+        .collection('likes')
+        .doc(user.uid)
+        .delete();
+    } else {
+      firestore()
+        .collection('posts')
+        .doc(item.id)
+        .update({likes: firestore.FieldValue.increment(1)});
+      firestore()
+        .collection('posts')
+        .doc(item.id)
+        .collection('likes')
+        .doc(user.uid)
+        .set({});
+    }
+  };
 
   const getUser = async () => {
     await firestore()
@@ -53,7 +120,6 @@ const PostCard = ({item, onDelete, onPress}) => {
   useEffect(() => {
     getUser();
   }, []);
-
   return (
     <Card>
       <UserInfo>
@@ -76,9 +142,11 @@ const PostCard = ({item, onDelete, onPress}) => {
         <Divider />
       )}
       <InteractionWrapper>
-        <Interaction>
+        <Interaction onPress={() => handleUpdateLike(currentLikeState)}>
           <Ionicons name={likeIcon} size={25} color={likeIconColor} />
-          <InteractionText active={item.liked}>{item.likes}</InteractionText>
+          <InteractionText active={item.liked}>
+            {currentLikeState.counter}
+          </InteractionText>
         </Interaction>
         <Interaction>
           <Ionicons name="md-chatbubble-outline" size={25} />
