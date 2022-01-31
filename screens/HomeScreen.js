@@ -122,7 +122,7 @@ const HomeScreen = ({navigation}) => {
     <View style={{flex: 1}}>
       {loading ? (
         <ScrollView
-          style={{flex: 1}}
+          style={{flex: 1, marginTop: 15}}
           contentContainerStyle={{alignItems: 'center'}}>
           <SkeletonPlaceholder>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>

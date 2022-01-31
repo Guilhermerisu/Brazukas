@@ -37,6 +37,17 @@ const PostCard = ({item, onDelete, onPress}) => {
   let likeIconColor = currentLikeState.state ? '#017970' : '#333';
   let commentText;
 
+  let likeCount;
+
+  currentLikeState.counter;
+  if (currentLikeState.counter == 1) {
+    likeCount = '1';
+  } else if (currentLikeState.counter > 1) {
+    likeCount = currentLikeState.counter;
+  } else {
+    likeCount = '';
+  }
+
   if (item.comments == 1) {
     commentText = '1 Comentário';
   } else if (item.comments > 1) {
@@ -144,9 +155,7 @@ const PostCard = ({item, onDelete, onPress}) => {
       <InteractionWrapper>
         <Interaction onPress={() => handleUpdateLike(currentLikeState)}>
           <Ionicons name={likeIcon} size={25} color={likeIconColor} />
-          <InteractionText active={item.liked}>
-            {currentLikeState.counter}
-          </InteractionText>
+          <InteractionText active={item.liked}>{likeCount}</InteractionText>
         </Interaction>
         <Interaction>
           <Ionicons name="md-chatbubble-outline" size={25} />
