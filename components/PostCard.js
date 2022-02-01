@@ -14,7 +14,7 @@ import {
   InteractionText,
   Divider,
 } from '../styles/HomeStyles';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, StyleSheet, View, Text} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {AuthContext} from '../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
@@ -22,11 +22,15 @@ import moment from 'moment';
 import 'moment/locale/pt-br';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {throttle} from 'throttle-debounce';
+import BottomSheet from 'reanimated-bottom-sheet';
+import Animated from 'react-native-reanimated';
 
-const PostCard = ({item, onDelete, onPress}) => {
+const PostCard = ({item, onDelete, onPress, onComment}) => {
   const {user, logout} = useContext(AuthContext);
   const [userData, setUserData] = useState(null);
   const [load, setLoad] = useState(true);
+
+  // Likes
 
   const [currentLikeState, setCurrentLikeState] = useState({
     state: false,
@@ -35,8 +39,6 @@ const PostCard = ({item, onDelete, onPress}) => {
 
   let likeIcon = currentLikeState.state ? 'heart' : 'heart-outline';
   let likeIconColor = currentLikeState.state ? '#017970' : '#333';
-  let commentText;
-
   let likeCount;
 
   currentLikeState.counter;
@@ -46,14 +48,6 @@ const PostCard = ({item, onDelete, onPress}) => {
     likeCount = currentLikeState.counter;
   } else {
     likeCount = '';
-  }
-
-  if (item.comments == 1) {
-    commentText = '1 Comentário';
-  } else if (item.comments > 1) {
-    commentText = item.comments + ' Comentários ';
-  } else {
-    commentText = 'Comentar';
   }
 
   useEffect(postId => {
@@ -115,7 +109,7 @@ const PostCard = ({item, onDelete, onPress}) => {
         .set({});
     }
   };
-
+  // get users
   const getUser = async () => {
     await firestore()
       .collection('users')
@@ -131,47 +125,60 @@ const PostCard = ({item, onDelete, onPress}) => {
   useEffect(() => {
     getUser();
   }, []);
+
+  // Comments
+  let commentText;
+  if (item.comments == 1) {
+    commentText = '1 Comentário';
+  } else if (item.comments > 1) {
+    commentText = item.comments + ' Comentários ';
+  } else {
+    commentText = 'Comentar';
+  }
+
   return (
-    <Card>
-      <UserInfo>
-        <UserImg
-          source={{
-            uri: userData ? userData.userImg || null : null,
-          }}
-        />
-        <UserInfoText>
-          <TouchableOpacity onPress={onPress}>
-            <UserName>{userData ? userData.nome || null : null} </UserName>
-          </TouchableOpacity>
-          <PostTime>{moment(item.postTime.toDate()).fromNow()}</PostTime>
-        </UserInfoText>
-      </UserInfo>
-      <PostText>{item.post}</PostText>
-      {item.postImg != null ? (
-        <PostImg source={{uri: item.postImg}} />
-      ) : (
-        <Divider />
-      )}
-      <InteractionWrapper>
-        <Interaction onPress={() => handleUpdateLike(currentLikeState)}>
-          <Ionicons name={likeIcon} size={25} color={likeIconColor} />
-          <InteractionText active={item.liked}>{likeCount}</InteractionText>
-        </Interaction>
-        <Interaction>
-          <Ionicons name="md-chatbubble-outline" size={25} />
-          <InteractionText>{commentText}</InteractionText>
-        </Interaction>
-        {user.uid == item.userId ? (
-          <Interaction onPress={() => onDelete(item.id)}>
-            <MaterialCommunityIcons
-              name="delete-outline"
-              size={25}
-              color={'red'}
-            />
+    <View>
+      <Card>
+        <UserInfo>
+          <UserImg
+            source={{
+              uri: userData ? userData.userImg || null : null,
+            }}
+          />
+          <UserInfoText>
+            <TouchableOpacity onPress={onPress}>
+              <UserName>{userData ? userData.nome || null : null} </UserName>
+            </TouchableOpacity>
+            <PostTime>{moment(item.postTime.toDate()).fromNow()}</PostTime>
+          </UserInfoText>
+        </UserInfo>
+        <PostText>{item.post}</PostText>
+        {item.postImg != null ? (
+          <PostImg source={{uri: item.postImg}} />
+        ) : (
+          <Divider />
+        )}
+        <InteractionWrapper>
+          <Interaction onPress={() => handleUpdateLike(currentLikeState)}>
+            <Ionicons name={likeIcon} size={25} color={likeIconColor} />
+            <InteractionText active={item.liked}>{likeCount}</InteractionText>
           </Interaction>
-        ) : null}
-      </InteractionWrapper>
-    </Card>
+          <Interaction onPress={onComment}>
+            <Ionicons name="md-chatbubble-outline" size={25} />
+            <InteractionText>{commentText}</InteractionText>
+          </Interaction>
+          {user.uid == item.userId ? (
+            <Interaction onPress={() => onDelete(item.id)}>
+              <MaterialCommunityIcons
+                name="delete-outline"
+                size={25}
+                color={'red'}
+              />
+            </Interaction>
+          ) : null}
+        </InteractionWrapper>
+      </Card>
+    </View>
   );
 };
 
