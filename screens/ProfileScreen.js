@@ -101,14 +101,18 @@ const ProfileScreen = ({navigation, route}) => {
               </View>
             </TouchableOpacity>
             <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('HomeProfile', {
+                  userId: route.params ? route.params.userId : user.uid,
+                })
+              }
               style={{
                 width: scale(75),
                 height: scale(85),
                 borderRadius: 17,
                 backgroundColor: '#f1f1f1',
                 marginLeft: scale(10),
-              }}
-              onPress={navigation.navigate('HomeStack')}>
+              }}>
               <View style={{flex: 1, alignItems: 'center'}}>
                 <Image
                   source={require('../assets/phot-icon.png')}

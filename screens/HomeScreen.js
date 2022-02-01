@@ -23,7 +23,7 @@ import {AuthContext} from '../navigation/AuthProvider';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CommentItem from '../components/renderComments';
 
-const HomeScreen = ({navigation, item}) => {
+const HomeScreen = ({navigation, item, route}) => {
   const [posts, setPosts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [load, setLoad] = useState(true);
@@ -38,26 +38,48 @@ const HomeScreen = ({navigation, item}) => {
     const fetchPosts = async () => {
       try {
         const list = [];
-        await firestore()
-          .collection('posts')
-          .orderBy('postTime', 'desc')
-          .get()
-          .then(querySnapshot => {
-            querySnapshot.forEach(doc => {
-              const {userId, post, postImg, postTime, likes, comments} =
-                doc.data();
-              list.push({
-                id: doc.id,
-                userId,
-                postTime: postTime,
-                post,
-                postImg,
-                liked: false,
-                likes,
-                comments,
+        route.params
+          ? await firestore()
+              .collection('posts')
+              .where('userId', '==', route.params.userId)
+              .orderBy('postTime', 'desc')
+              .get()
+              .then(querySnapshot => {
+                querySnapshot.forEach(doc => {
+                  const {userId, post, postImg, postTime, likes, comments} =
+                    doc.data();
+                  list.push({
+                    id: doc.id,
+                    userId,
+                    postTime: postTime,
+                    post,
+                    postImg,
+                    liked: false,
+                    likes,
+                    comments,
+                  });
+                });
+              })
+          : await firestore()
+              .collection('posts')
+              .orderBy('postTime', 'desc')
+              .get()
+              .then(querySnapshot => {
+                querySnapshot.forEach(doc => {
+                  const {userId, post, postImg, postTime, likes, comments} =
+                    doc.data();
+                  list.push({
+                    id: doc.id,
+                    userId,
+                    postTime: postTime,
+                    post,
+                    postImg,
+                    liked: false,
+                    likes,
+                    comments,
+                  });
+                });
               });
-            });
-          });
 
         setPosts(list);
 
@@ -337,7 +359,7 @@ const HomeScreen = ({navigation, item}) => {
             enabledGestureInteraction={true}
             enabledContentGestureInteraction={false}
             onOpenEnd={commentListener}
-            onCloseEnd={clearCommentListener}
+            onCloseEnd={() => clearCommentListener()}
           />
           <Container>
             <FlatList

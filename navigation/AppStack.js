@@ -106,6 +106,23 @@ const FeedStack = ({navigation}) => (
         ),
       }}
     />
+    <Stack.Screen
+      name="HomeProfile"
+      component={HomeScreen}
+      options={{
+        title: '',
+        headerStyle: {
+          backgroundColor: '#fff',
+          shadowColor: '#fff',
+        },
+        headerBackTitleVisible: false,
+        headerBackImage: () => (
+          <View style={{marginLeft: 15}}>
+            <Ionicons name="arrow-back" size={25} color="#009387" />
+          </View>
+        ),
+      }}
+    />
   </Stack.Navigator>
 );
 
@@ -156,6 +173,23 @@ const ProfileStack = ({navigation}) => {
           title: '',
           headerStyle: {
             backgroundColor: 'transparent',
+            shadowColor: '#fff',
+          },
+          headerBackTitleVisible: false,
+          headerBackImage: () => (
+            <View style={{marginLeft: 15}}>
+              <Ionicons name="arrow-back" size={25} color="#009387" />
+            </View>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="HomeProfile"
+        component={HomeScreen}
+        options={{
+          title: '',
+          headerStyle: {
+            backgroundColor: '#fff',
             shadowColor: '#fff',
           },
           headerBackTitleVisible: false,
