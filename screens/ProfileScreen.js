@@ -10,7 +10,7 @@ import {
   ImageBackground,
   Dimensions,
 } from 'react-native';
-import {Avatar, Title, Caption, TouchableRipple} from 'react-native-paper';
+import {Avatar, Title, Caption} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import firestore from '@react-native-firebase/firestore';
 import {AuthContext} from '../navigation/AuthProvider';
@@ -107,7 +107,8 @@ const ProfileScreen = ({navigation, route}) => {
                 borderRadius: 17,
                 backgroundColor: '#f1f1f1',
                 marginLeft: scale(10),
-              }}>
+              }}
+              onPress={navigation.navigate('HomeStack')}>
               <View style={{flex: 1, alignItems: 'center'}}>
                 <Image
                   source={require('../assets/phot-icon.png')}
@@ -117,6 +118,7 @@ const ProfileScreen = ({navigation, route}) => {
               </View>
             </TouchableOpacity>
           </View>
+          <View style={styles.divider}></View>
         </View>
       </View>
     </SafeAreaView>
@@ -196,5 +198,12 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 8,
     marginTop: -45,
+  },
+  divider: {
+    borderBottomColor: '#F0EEEE',
+    borderBottomWidth: 1,
+    width: '92%',
+    marginTop: 10,
+    alignSelf: 'center',
   },
 });

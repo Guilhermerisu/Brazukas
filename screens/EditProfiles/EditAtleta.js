@@ -276,10 +276,11 @@ const EditAtleta = ({navigation}) => {
             <Text style={{color: '#009387'}}>{transferred} % </Text>
             <ActivityIndicator size="small" color="#009387" />
           </View>
-        ) : null}
-        <TouchableOpacity onPress={handleUpdate} style={styles.commandButton}>
-          <Text style={styles.panelButtonTitle}>Salvar </Text>
-        </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={handleUpdate} style={styles.commandButton}>
+            <Text style={styles.panelButtonTitle}>Salvar </Text>
+          </TouchableOpacity>
+        )}
       </Animated.View>
     </ScrollView>
   );
