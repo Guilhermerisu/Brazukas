@@ -28,7 +28,7 @@ const EditScreens = () => {
 
 const EditProfileScreen = ({navigation}) => {
   return (
-    <ScrollView>
+    <ScrollView style={{marginTop: 15}}>
       <View style={styles.select}>
         <View style={{marginTop: 23}}>
           <TouchableOpacity onPress={() => navigation.navigate('EditPadrao')}>
@@ -75,10 +75,13 @@ const styles = StyleSheet.create({
   },
   select: {
     paddingHorizontal: 30,
-    marginBottom: 25,
   },
   text: {
     fontSize: 25,
     fontWeight: '700',
+  },
+  ScrollStyle: {
+    alignContent: 'stretch',
+    justifyContent: 'flex-end',
   },
 });

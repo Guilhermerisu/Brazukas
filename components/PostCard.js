@@ -24,11 +24,14 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {throttle} from 'throttle-debounce';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
+import {useNavigation} from '@react-navigation/native';
 
 const PostCard = ({item, onDelete, onPress, onComment}) => {
   const {user, logout} = useContext(AuthContext);
   const [userData, setUserData] = useState(null);
   const [load, setLoad] = useState(true);
+
+  const navigation = useNavigation();
 
   // Likes
 
@@ -124,7 +127,8 @@ const PostCard = ({item, onDelete, onPress, onComment}) => {
 
   useEffect(() => {
     getUser();
-  }, []);
+    navigation.addListener('focus', () => setLoad(!load));
+  }, [navigation, load]);
 
   // Comments
   let commentText;

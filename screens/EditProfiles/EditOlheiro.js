@@ -9,6 +9,7 @@ import {
   StyleSheet,
   Alert,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -60,7 +61,6 @@ const EditOlheiro = ({navigation}) => {
         userImg: imgUrl,
       })
       .then(() => {
-        console.log('Atualizado');
         Alert.alert(
           'Perfil atualizado',
           'Suas alterações foram salvas com sucesso!',
@@ -119,10 +119,6 @@ const EditOlheiro = ({navigation}) => {
     const task = storageRef.putFile(uploadUri);
 
     task.on('state_changed', taskSnapshot => {
-      console.log(
-        `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`,
-      );
-
       setTransferred(
         Math.round(taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) *
           100,
@@ -155,7 +151,6 @@ const EditOlheiro = ({navigation}) => {
       cropping: true,
       compressImageQuality: 0.7,
     }).then(image => {
-      console.log(image);
       setImage(image.path);
     });
   };
@@ -167,7 +162,6 @@ const EditOlheiro = ({navigation}) => {
       cropping: true,
       compressImageQuality: 0.7,
     }).then(image => {
-      console.log(image);
       setImage(image.path);
     });
   };
@@ -279,6 +273,12 @@ const EditOlheiro = ({navigation}) => {
             style={styles.textInput}
           />
         </View>
+        {uploading ? (
+          <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            <Text style={{color: '#009387'}}>{transferred} % </Text>
+            <ActivityIndicator size="small" color="#009387" />
+          </View>
+        ) : null}
         <TouchableOpacity onPress={handleUpdate} style={styles.commandButton}>
           <Text style={styles.panelButtonTitle}>Salvar </Text>
         </TouchableOpacity>
