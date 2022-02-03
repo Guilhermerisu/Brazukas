@@ -127,7 +127,7 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.feer"
+        applicationId "com.Brazukas"
         minSdkVersion 21
         targetSdkVersion 31
         versionCode 1

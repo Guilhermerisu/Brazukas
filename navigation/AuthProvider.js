@@ -28,9 +28,29 @@ export const AuthProvider = ({children}) => {
             const googleCredential =
               auth.GoogleAuthProvider.credential(idToken);
 
-            await auth().signInWithCredential(googleCredential);
-          } catch (error) {
-            console.log({error});
+            await auth()
+              .signInWithCredential(googleCredential)
+              .then(() => {
+                firestore()
+                  .collection('users')
+                  .doc(auth().currentUser.uid)
+                  .set({
+                    nome: '',
+                    createdAt: firestore.Timestamp.fromDate(new Date()),
+                    userImg: null,
+                  })
+                  .catch(error => {
+                    console.log(
+                      'Something went wrong with added user to firestore: ',
+                      error,
+                    );
+                  });
+              })
+              .catch(error => {
+                console.log('Something went wrong with sign up: ', error);
+              });
+          } catch (e) {
+            console.log(e);
           }
         },
         fbLogin: async () => {
@@ -54,9 +74,29 @@ export const AuthProvider = ({children}) => {
               data.accessToken,
             );
 
-            await auth().signInWithCredential(facebookCredential);
-          } catch (error) {
-            console.log({error});
+            await auth()
+              .signInWithCredential(facebookCredential)
+              .then(() => {
+                firestore()
+                  .collection('users')
+                  .doc(auth().currentUser.uid)
+                  .set({
+                    nome: '',
+                    createdAt: firestore.Timestamp.fromDate(new Date()),
+                    userImg: null,
+                  })
+                  .catch(error => {
+                    console.log(
+                      'Something went wrong with added user to firestore: ',
+                      error,
+                    );
+                  });
+              })
+              .catch(error => {
+                console.log('Something went wrong with sign up: ', error);
+              });
+          } catch (e) {
+            console.log(e);
           }
         },
 

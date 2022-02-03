@@ -1,4 +1,4 @@
-package com.feer;
+package com.Brazukas;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate; // <- add this necessary import
@@ -12,7 +12,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "Feer";
+    return "Brazukas";
   }
   @Override
 protected void onCreate(Bundle savedInstanceState) {

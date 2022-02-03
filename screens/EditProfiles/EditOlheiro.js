@@ -53,10 +53,10 @@ const EditOlheiro = ({navigation}) => {
       .collection('users')
       .doc(user.uid)
       .update({
-        nome: userData.nome,
-        emailCom: userData.emailCom,
-        telefone: userData.telefone,
-        cidade: userData.cidade,
+        nome: userData.nome ? userData.nome : null,
+        emailCom: userData.emailCom ? userData.emailCom : null,
+        telefone: userData.telefone ? userData.telefone : null,
+        cidade: userData.cidade ? userData.cidade : null,
         conta: 'Olheiro',
         userImg: imgUrl,
       })
