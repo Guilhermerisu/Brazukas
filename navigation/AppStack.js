@@ -17,6 +17,8 @@ import CustomDrawer from '../components/CustomDrawer';
 import SearchScreen from '../screens/SearchScreen';
 import RegistroGeral from '../screens/Registro/Registro';
 import AddPostScreen from '../screens/AddPostScreen';
+import CardScreen from '../screens/CardScreen';
+import ContactScreen from '../screens/ContactScreen';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -117,7 +119,41 @@ const FeedStack = ({navigation}) => (
         },
         headerBackTitleVisible: false,
         headerBackImage: () => (
-          <View style={{marginLeft: 15}}>
+          <View style={{marginLeft: 7}}>
+            <Ionicons name="arrow-back" size={25} color="#009387" />
+          </View>
+        ),
+      }}
+    />
+    <Stack.Screen
+      name="CardScreenStack"
+      component={CardScreen}
+      options={{
+        title: '',
+        headerStyle: {
+          backgroundColor: 'transparent',
+          shadowColor: 'transparent',
+        },
+        headerBackTitleVisible: false,
+        headerBackImage: () => (
+          <View style={{marginLeft: 7}}>
+            <Ionicons name="arrow-back" size={25} color="#009387" />
+          </View>
+        ),
+      }}
+    />
+    <Stack.Screen
+      name="ContactScreenStack"
+      component={ContactScreen}
+      options={{
+        title: '',
+        headerStyle: {
+          backgroundColor: 'transparent',
+          shadowColor: 'transparent',
+        },
+        headerBackTitleVisible: false,
+        headerBackImage: () => (
+          <View style={{marginLeft: 7}}>
             <Ionicons name="arrow-back" size={25} color="#009387" />
           </View>
         ),
@@ -200,6 +236,40 @@ const ProfileStack = ({navigation}) => {
           ),
         }}
       />
+      <Stack.Screen
+        name="CardScreenStack"
+        component={CardScreen}
+        options={{
+          title: '',
+          headerStyle: {
+            backgroundColor: 'transparent',
+            shadowColor: 'transparent',
+          },
+          headerBackTitleVisible: false,
+          headerBackImage: () => (
+            <View style={{marginLeft: 7}}>
+              <Ionicons name="arrow-back" size={25} color="#009387" />
+            </View>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="ContactScreenStack"
+        component={ContactScreen}
+        options={{
+          title: '',
+          headerStyle: {
+            backgroundColor: 'transparent',
+            shadowColor: 'transparent',
+          },
+          headerBackTitleVisible: false,
+          headerBackImage: () => (
+            <View style={{marginLeft: 7}}>
+              <Ionicons name="arrow-back" size={25} color="#009387" />
+            </View>
+          ),
+        }}
+      />
     </Stack.Navigator>
   );
 };
@@ -257,20 +327,20 @@ const AppStack = () => {
         }}
       />
       <Drawer.Screen
-        name="Mensagens"
-        component={ProfileStack}
-        options={{
-          drawerIcon: ({color}) => (
-            <Ionicons name="chatbox-ellipses-outline" size={22} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
         name="Torneios"
         component={ProfileStack}
         options={{
           drawerIcon: ({color}) => (
             <Ionicons name="md-trophy-outline" size={22} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Procurar"
+        component={SearchScreen}
+        options={{
+          drawerIcon: ({color}) => (
+            <Ionicons name="search" size={22} color={color} />
           ),
         }}
       />

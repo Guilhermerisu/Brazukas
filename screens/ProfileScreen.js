@@ -69,6 +69,11 @@ const ProfileScreen = ({navigation, route}) => {
         <View style={styles.box}>
           <View style={{flexDirection: 'row', marginTop: 10}}>
             <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('CardScreenStack', {
+                  userId: route.params ? route.params.userId : user.uid,
+                })
+              }
               style={{
                 width: scale(75),
                 height: scale(85),
@@ -85,6 +90,11 @@ const ProfileScreen = ({navigation, route}) => {
               </View>
             </TouchableOpacity>
             <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('ContactScreenStack', {
+                  userId: route.params ? route.params.userId : user.uid,
+                })
+              }
               style={{
                 width: scale(75),
                 height: scale(85),

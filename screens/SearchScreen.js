@@ -72,6 +72,7 @@ const SearchScreen = ({navigation}) => {
           ]}
           placeholder={'Pesquisar'}
           placeholderTextColor="#A7A4A4"
+          autoFocus={true}
         />
       </View>
       <View
