@@ -67,6 +67,7 @@ const RegistroAtleta = ({navigation}) => {
         peso: userData.peso ? userData.peso : null,
         posição1: userData.posição1 ? userData.posição1 : null,
         posição2: userData.posição2 ? userData.posição2 : null,
+        meta: userData.meta ? userData.meta : null,
         conta: 'Atleta',
         userImg: imgUrl,
       })
@@ -390,6 +391,18 @@ const RegistroAtleta = ({navigation}) => {
               autoCorrect={false}
               value={userData ? userData.posição2 : ''}
               onChangeText={txt => setUserData({...userData, posição2: txt})}
+              style={styles.textInput}
+            />
+          </View>
+          <View style={styles.action}>
+            <TextInput
+              placeholder="Meta/Sonho"
+              placeholderTextColor="#666666"
+              autoCorrect={false}
+              multiline
+              numberOfLines={3}
+              value={userData ? userData.meta : ''}
+              onChangeText={txt => setUserData({...userData, meta: txt})}
               style={styles.textInput}
             />
           </View>

@@ -9,16 +9,17 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-community/async-storage';
 
+import RegistroGeral from '../screens/Registro/Registro';
 import {AuthContext} from '../navigation/AuthProvider';
 import HomeScreen from '../screens/HomeScreen';
 import EditProfileScreen from '../screens/EditProfiles/EditProfileScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import CustomDrawer from '../components/CustomDrawer';
 import SearchScreen from '../screens/SearchScreen';
-import RegistroGeral from '../screens/Registro/Registro';
 import AddPostScreen from '../screens/AddPostScreen';
 import CardScreen from '../screens/CardScreen';
 import ContactScreen from '../screens/ContactScreen';
+import TournamentScreen from '../screens/TournamentScreen';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -148,13 +149,13 @@ const FeedStack = ({navigation}) => (
       options={{
         title: '',
         headerStyle: {
-          backgroundColor: 'transparent',
-          shadowColor: 'transparent',
+          backgroundColor: '#017970',
+          shadowColor: '#017970',
         },
         headerBackTitleVisible: false,
         headerBackImage: () => (
           <View style={{marginLeft: 7}}>
-            <Ionicons name="arrow-back" size={25} color="#009387" />
+            <Ionicons name="arrow-back" size={25} color="#fff" />
           </View>
         ),
       }}
@@ -259,13 +260,13 @@ const ProfileStack = ({navigation}) => {
         options={{
           title: '',
           headerStyle: {
-            backgroundColor: 'transparent',
-            shadowColor: 'transparent',
+            backgroundColor: '#017970',
+            shadowColor: '#017970',
           },
           headerBackTitleVisible: false,
           headerBackImage: () => (
             <View style={{marginLeft: 7}}>
-              <Ionicons name="arrow-back" size={25} color="#009387" />
+              <Ionicons name="arrow-back" size={25} color="#fff" />
             </View>
           ),
         }}
@@ -328,7 +329,7 @@ const AppStack = () => {
       />
       <Drawer.Screen
         name="Torneios"
-        component={ProfileStack}
+        component={TournamentScreen}
         options={{
           drawerIcon: ({color}) => (
             <Ionicons name="md-trophy-outline" size={22} color={color} />
@@ -347,7 +348,7 @@ const AppStack = () => {
       <Stack.Screen
         name="Registro"
         component={RegistroGeral}
-        options={{title: ''}}
+        options={{title: () => null}}
       />
     </Drawer.Navigator>
   );

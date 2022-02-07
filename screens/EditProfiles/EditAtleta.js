@@ -66,6 +66,7 @@ const EditAtleta = ({navigation}) => {
         peso: userData.peso ? userData.peso : null,
         posição1: userData.posição1 ? userData.posição1 : null,
         posição2: userData.posição2 ? userData.posição2 : null,
+        meta: userData.meta ? userData.meta : null,
         conta: 'Atleta',
         userImg: imgUrl,
       })
@@ -182,7 +183,7 @@ const EditAtleta = ({navigation}) => {
     <ScrollView style={styles.container}>
       <BottomSheet
         ref={bs}
-        snapPoints={[241, 0]} //330
+        snapPoints={[1010, 1]} //330
         renderContent={renderInner}
         renderHeader={renderHeader}
         initialSnap={1}
@@ -392,6 +393,18 @@ const EditAtleta = ({navigation}) => {
               style={styles.textInput}
             />
           </View>
+          <View style={styles.action}>
+            <TextInput
+              placeholder="Meta/Sonho"
+              placeholderTextColor="#666666"
+              autoCorrect={false}
+              multiline
+              numberOfLines={3}
+              value={userData ? userData.meta : ''}
+              onChangeText={txt => setUserData({...userData, meta: txt})}
+              style={styles.textInput}
+            />
+          </View>
         </View>
         {uploading ? (
           <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -425,12 +438,6 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#FFFFFF',
     paddingTop: 20,
-    // borderTopLeftRadius: 20,
-    // borderTopRightRadius: 20,
-    // shadowColor: '#000000',
-    // shadowOffset: {width: 0, height: 0},
-    // shadowRadius: 5,
-    // shadowOpacity: 0.4,
   },
   header: {
     backgroundColor: '#FFFFFF',
@@ -438,7 +445,6 @@ const styles = StyleSheet.create({
     shadowOffset: {width: -1, height: -3},
     shadowRadius: 2,
     shadowOpacity: 0.4,
-    // elevation: 5,
     paddingTop: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,

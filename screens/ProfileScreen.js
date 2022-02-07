@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Dimensions,
+  Alert,
 } from 'react-native';
 import {Avatar, Title, Caption} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -67,13 +68,20 @@ const ProfileScreen = ({navigation, route}) => {
       </ImageBackground>
       <View style={{alignItems: 'center'}}>
         <View style={styles.box}>
-          <View style={{flexDirection: 'row', marginTop: 10}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              marginTop: 10,
+              justifyContent: 'center',
+            }}>
             <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('CardScreenStack', {
-                  userId: route.params ? route.params.userId : user.uid,
-                })
-              }
+              onPress={() => {
+                userData.conta == 'Atleta'
+                  ? navigation.navigate('CardScreenStack', {
+                      userId: route.params ? route.params.userId : user.uid,
+                    })
+                  : Alert.alert('', 'Apenas atletas possuem fichas');
+              }}
               style={{
                 width: scale(75),
                 height: scale(85),
