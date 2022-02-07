@@ -57,6 +57,7 @@ const EditOlheiro = ({navigation}) => {
         emailCom: userData.emailCom ? userData.emailCom : null,
         telefone: userData.telefone ? userData.telefone : null,
         cidade: userData.cidade ? userData.cidade : null,
+        sobre: userData.sobre ? userData.sobre : null,
         conta: 'Olheiro',
         userImg: imgUrl,
       })
@@ -263,7 +264,7 @@ const EditOlheiro = ({navigation}) => {
           />
         </View>
         <View style={styles.action}>
-          <Icon name="map-marker-outline" size={20} color="#009387" />
+          <Icon name="map-marker-outline" size={23} color="#009387" />
           <TextInput
             placeholder="Cidade"
             placeholderTextColor="#666666"
@@ -271,6 +272,19 @@ const EditOlheiro = ({navigation}) => {
             value={userData ? userData.cidade : ''}
             onChangeText={txt => setUserData({...userData, cidade: txt})}
             style={styles.textInput}
+          />
+        </View>
+        <View style={styles.action}>
+          <Icon name="pencil-box-outline" size={25} color="#009387" />
+          <TextInput
+            placeholder="Sobre mim"
+            placeholderTextColor="#666666"
+            autoCorrect={false}
+            multiline
+            numberOfLines={4}
+            value={userData ? userData.sobre : ''}
+            onChangeText={txt => setUserData({...userData, sobre: txt})}
+            style={[styles.textInput, {marginTop: -32}]}
           />
         </View>
         {uploading ? (

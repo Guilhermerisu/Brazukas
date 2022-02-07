@@ -132,7 +132,16 @@ const ProfileScreen = ({navigation, route}) => {
               </View>
             </TouchableOpacity>
           </View>
-          <View style={styles.divider}></View>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View style={styles.lineOne}></View>
+            <Text style={styles.sobre}>SOBRE MIM</Text>
+            <View style={styles.lineTwo}></View>
+          </View>
+          <View style={styles.sobretext}>
+            <Text style={{color: '#403F3F'}}>
+              {userData ? userData.sobre : ''}
+            </Text>
+          </View>
         </View>
       </View>
     </SafeAreaView>
@@ -219,5 +228,28 @@ const styles = StyleSheet.create({
     width: '92%',
     marginTop: 10,
     alignSelf: 'center',
+  },
+  lineOne: {
+    borderBottomColor: '#017970',
+    borderBottomWidth: 1,
+    width: 20,
+    marginTop: 60,
+    marginLeft: 10,
+  },
+  lineTwo: {
+    borderBottomColor: '#017970',
+    borderBottomWidth: 1,
+    width: 137,
+    marginTop: 60,
+    marginLeft: 7,
+  },
+  sobre: {
+    color: '#017970',
+    marginTop: 60,
+    fontWeight: 'bold',
+    marginLeft: 7,
+  },
+  sobretext: {
+    margin: 10,
   },
 });

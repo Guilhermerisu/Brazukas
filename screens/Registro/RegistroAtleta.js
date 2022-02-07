@@ -10,6 +10,7 @@ import {
   Alert,
   ScrollView,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -56,6 +57,16 @@ const RegistroAtleta = ({navigation}) => {
         emailCom: userData.emailCom ? userData.emailCom : null,
         telefone: userData.telefone ? userData.telefone : null,
         cidade: userData.cidade ? userData.cidade : null,
+        sobre: userData.sobre ? userData.sobre : null,
+        apelido: userData.apelido ? userData.apelido : null,
+        idade: userData.idade ? userData.idade : null,
+        interessepro: userData.interessepro ? userData.interessepro : null,
+        site: userData.site ? userData.site : null,
+        clube: userData.clube ? userData.clube : null,
+        altura: userData.altura ? userData.altura : null,
+        peso: userData.peso ? userData.peso : null,
+        posição1: userData.posição1 ? userData.posição1 : null,
+        posição2: userData.posição2 ? userData.posição2 : null,
         conta: 'Atleta',
         userImg: imgUrl,
       })
@@ -262,7 +273,7 @@ const RegistroAtleta = ({navigation}) => {
           />
         </View>
         <View style={styles.action}>
-          <Icon name="map-marker-outline" size={20} color="#009387" />
+          <Icon name="map-marker-outline" size={23} color="#009387" />
           <TextInput
             placeholder="Cidade"
             placeholderTextColor="#666666"
@@ -271,6 +282,117 @@ const RegistroAtleta = ({navigation}) => {
             onChangeText={txt => setUserData({...userData, cidade: txt})}
             style={styles.textInput}
           />
+        </View>
+        <View style={styles.action}>
+          <Icon name="pencil-box-outline" size={25} color="#009387" />
+          <TextInput
+            placeholder="Sobre mim"
+            placeholderTextColor="#666666"
+            autoCorrect={false}
+            multiline
+            numberOfLines={4}
+            value={userData ? userData.sobre : ''}
+            onChangeText={txt => setUserData({...userData, sobre: txt})}
+            style={[styles.textInput, {marginTop: -32}]}
+          />
+        </View>
+        <Image
+          style={styles.ficha}
+          source={require('../../assets/dados-icon.png')}
+        />
+        <View style={styles.box}>
+          <View style={styles.action}>
+            <TextInput
+              placeholder="Apelido"
+              placeholderTextColor="#666666"
+              autoCorrect={false}
+              value={userData ? userData.apelido : ''}
+              onChangeText={txt => setUserData({...userData, apelido: txt})}
+              style={styles.textInput}
+            />
+          </View>
+          <View style={styles.action}>
+            <TextInput
+              placeholder="Idade"
+              placeholderTextColor="#666666"
+              autoCorrect={false}
+              value={userData ? userData.idade : ''}
+              onChangeText={txt => setUserData({...userData, idade: txt})}
+              style={styles.textInput}
+            />
+          </View>
+          <View style={styles.action}>
+            <TextInput
+              placeholder="Interesse Profissional"
+              placeholderTextColor="#666666"
+              autoCorrect={false}
+              value={userData ? userData.interessepro : ''}
+              onChangeText={txt =>
+                setUserData({...userData, interessepro: txt})
+              }
+              style={styles.textInput}
+            />
+          </View>
+          <View style={styles.action}>
+            <TextInput
+              placeholder="Site"
+              placeholderTextColor="#666666"
+              autoCorrect={false}
+              value={userData ? userData.site : ''}
+              onChangeText={txt => setUserData({...userData, site: txt})}
+              style={styles.textInput}
+            />
+          </View>
+          <View style={styles.action}>
+            <TextInput
+              placeholder="Clube Afiliado"
+              placeholderTextColor="#666666"
+              autoCorrect={false}
+              value={userData ? userData.clube : ''}
+              onChangeText={txt => setUserData({...userData, clube: txt})}
+              style={styles.textInput}
+            />
+          </View>
+          <View style={styles.action}>
+            <TextInput
+              placeholder="Altura (m)"
+              placeholderTextColor="#666666"
+              autoCorrect={false}
+              value={userData ? userData.altura : ''}
+              onChangeText={txt => setUserData({...userData, altura: txt})}
+              style={styles.textInput}
+            />
+          </View>
+          <View style={styles.action}>
+            <TextInput
+              placeholder="Peso (kg)"
+              placeholderTextColor="#666666"
+              autoCorrect={false}
+              value={userData ? userData.peso : ''}
+              onChangeText={txt => setUserData({...userData, peso: txt})}
+              style={styles.textInput}
+            />
+          </View>
+          <View style={styles.action}>
+            <TextInput
+              placeholder="Posição 1"
+              placeholderTextColor="#666666"
+              autoCorrect={false}
+              value={userData ? userData.posição1 : ''}
+              onChangeText={txt => setUserData({...userData, posição1: txt})}
+              style={styles.textInput}
+            />
+          </View>
+          <View style={styles.action}>
+            <TextInput
+              placeholder="Posição 2"
+              placeholderTextColor="#666666"
+              autoCorrect={false}
+              value={userData ? userData.posição2 : ''}
+              onChangeText={txt => setUserData({...userData, posição2: txt})}
+              style={styles.textInput}
+            />
+          </View>
         </View>
         {uploading ? (
           <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -374,5 +496,18 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === 'ios' ? 0 : -12,
     paddingLeft: 10,
     color: '#05375a',
+  },
+  box: {
+    borderColor: '#009387',
+    borderWidth: 1,
+    width: '100%',
+    marginTop: 0,
+    alignSelf: 'center',
+  },
+  ficha: {
+    marginTop: 10,
+    alignSelf: 'center',
+    height: 50,
+    width: 50,
   },
 });
