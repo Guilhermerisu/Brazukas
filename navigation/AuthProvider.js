@@ -4,6 +4,7 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {LoginManager, AccessToken} from 'react-native-fbsdk';
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-community/async-storage';
+import {Alert} from 'react-native';
 
 export const AuthContext = createContext();
 export const AuthProvider = ({children}) => {
@@ -18,7 +19,7 @@ export const AuthProvider = ({children}) => {
           try {
             await auth().signInWithEmailAndPassword(email, password);
           } catch (e) {
-            console.log(e);
+            Alert.alert('Usuário inválido', 'Email e/ou senha incorretos');
           }
         },
         googleLogin: async () => {

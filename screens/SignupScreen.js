@@ -55,7 +55,13 @@ const SignupScreen = ({navigation}) => {
                   autoCapitalize="none"
                   autoCorrect={false}
                 />
-
+                {email ? (
+                  email.length > 15 ? null : (
+                    <Text style={{color: 'red'}}>
+                      Insira um endereço de email válido
+                    </Text>
+                  )
+                ) : null}
                 <View style={{marginTop: 3}}>
                   <FormInput
                     labelValue={password}
@@ -64,6 +70,13 @@ const SignupScreen = ({navigation}) => {
                     iconType="lock1"
                     secureTextEntry={true}
                   />
+                  {password ? (
+                    password.length >= 6 ? null : (
+                      <Text style={{color: 'red'}}>
+                        Senha deve conter pelo menos 6 carateres
+                      </Text>
+                    )
+                  ) : null}
                   <View style={{marginTop: 3}}>
                     <FormInput
                       labelValue={confirmPassword}
@@ -74,6 +87,13 @@ const SignupScreen = ({navigation}) => {
                       iconType="unlock"
                       secureTextEntry={true}
                     />
+                    {confirmPassword ? (
+                      confirmPassword == password ? null : (
+                        <Text style={{color: 'red', marginBottom: 10}}>
+                          As senhas precisam ser iguais
+                        </Text>
+                      )
+                    ) : null}
                     <TouchableOpacity
                       onPress={() => navigation.navigate('Login')}>
                       <Text
