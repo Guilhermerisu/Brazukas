@@ -49,7 +49,7 @@ const ContactUsScreen = ({navigation}) => {
         style={styles.send}
         onPress={() => {
           Linking.openURL(
-            `mailto:brazukas@gmail.com?subject=${Assunto}&body=${Email}`,
+            `mailto:brazukasclub@gmail.com?subject=${Assunto}&body=${Email}`,
           ),
             navigation.goBack();
         }}>
