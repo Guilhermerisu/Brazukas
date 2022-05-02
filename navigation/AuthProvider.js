@@ -120,13 +120,19 @@ export const AuthProvider = ({children}) => {
                       'Something went wrong with added user to firestore: ',
                       error,
                     );
+                    Alert.alert(
+                      'Usuário inválido',
+                      'O Email inserido já está em uso',
+                    );
                   });
               })
               .catch(error => {
                 console.log('Something went wrong with sign up: ', error);
               });
+            Alert.alert('Usuário inválido', 'O Email inserido já está em uso');
           } catch (e) {
             console.log(e);
+            Alert.alert('Usuário inválido', 'O Email inserido já está em uso');
           }
         },
         logout: async () => {

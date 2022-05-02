@@ -67,7 +67,9 @@ const ContactScreen = ({navigation, route}) => {
         style={styles.send}
         onPress={() => {
           Linking.openURL(
-            `mailto:${userData.emailCom}?subject=${Assunto}&body=${Email}`,
+            `mailto:${
+              userData.idade < 18 ? userData.emailres : userData.emailCom
+            }?subject=${Assunto}&body=${Email}`,
           ),
             navigation.goBack();
         }}>
@@ -92,7 +94,11 @@ const ContactScreen = ({navigation, route}) => {
           style={{alignSelf: 'center'}}
         />
         <Text style={{color: '#fff', fontSize: 17}}>
-          {userData ? userData.telefone : null}
+          {userData
+            ? userData.idade < 18
+              ? userData.telefoneres
+              : userData.telefone
+            : null}
         </Text>
       </TouchableOpacity>
     </View>

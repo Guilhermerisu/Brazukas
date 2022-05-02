@@ -20,6 +20,7 @@ import AddPostScreen from '../screens/AddPostScreen';
 import CardScreen from '../screens/CardScreen';
 import ContactScreen from '../screens/ContactScreen';
 import TournamentScreen from '../screens/TournamentScreen';
+import ContactUsScreen from '../screens/ContactUsScreen';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -92,6 +93,24 @@ const FeedStack = ({navigation}) => (
       }}
     />
     <Stack.Screen
+      name="ContactUs"
+      component={ContactUsScreen}
+      options={{
+        title: '',
+        headerStyle: {
+          backgroundColor: '#017970',
+          shadowColor: '#017970',
+          height: 45,
+        },
+        headerBackTitleVisible: false,
+        headerBackImage: () => (
+          <View style={{marginLeft: 15}}>
+            <Ionicons name="arrow-back" size={25} color="#fff" />
+          </View>
+        ),
+      }}
+    />
+    <Stack.Screen
       name="ProfileOther"
       component={ProfileScreen}
       options={{
@@ -121,6 +140,23 @@ const FeedStack = ({navigation}) => (
         headerBackTitleVisible: false,
         headerBackImage: () => (
           <View style={{marginLeft: 7}}>
+            <Ionicons name="arrow-back" size={25} color="#009387" />
+          </View>
+        ),
+      }}
+    />
+    <Stack.Screen
+      name="EditProfileScreenStack"
+      component={EditProfileScreen}
+      options={{
+        title: '',
+        headerStyle: {
+          backgroundColor: 'transparent',
+          shadowColor: '#fff',
+        },
+        headerBackTitleVisible: false,
+        headerBackImage: () => (
+          <View style={{marginLeft: 15}}>
             <Ionicons name="arrow-back" size={25} color="#009387" />
           </View>
         ),

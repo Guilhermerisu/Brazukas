@@ -22,6 +22,8 @@ import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 import {AuthContext} from '../../navigation/AuthProvider';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import {Picker} from '@react-native-picker/picker';
+
 const EditAtleta = ({navigation}) => {
   const {user, logout} = useContext(AuthContext);
   const [image, setImage] = useState(null);
@@ -55,6 +57,7 @@ const EditAtleta = ({navigation}) => {
         nome: userData.nome ? userData.nome : null,
         emailCom: userData.emailCom ? userData.emailCom : null,
         telefone: userData.telefone ? userData.telefone : null,
+        estado: userData.estado ? userData.estado : null,
         cidade: userData.cidade ? userData.cidade : null,
         sobre: userData.sobre ? userData.sobre : null,
         apelido: userData.apelido ? userData.apelido : null,
@@ -67,6 +70,8 @@ const EditAtleta = ({navigation}) => {
         posição1: userData.posição1 ? userData.posição1 : null,
         posição2: userData.posição2 ? userData.posição2 : null,
         meta: userData.meta ? userData.meta : null,
+        emailres: userData.emailres ? userData.emailres : null,
+        telefoneres: userData.telefoneres ? userData.telefoneres : null,
         conta: 'Atleta',
         userImg: imgUrl,
       })
@@ -183,7 +188,7 @@ const EditAtleta = ({navigation}) => {
     <ScrollView style={styles.container}>
       <BottomSheet
         ref={bs}
-        snapPoints={[1010, 1]} //330
+        snapPoints={[1120, 1]} //330
         renderContent={renderInner}
         renderHeader={renderHeader}
         initialSnap={1}
@@ -272,6 +277,156 @@ const EditAtleta = ({navigation}) => {
             style={styles.textInput}
           />
         </View>
+        <View style={{flexDirection: 'row'}}>
+          <Icon name="map-marker-outline" size={23} color="#009387" />
+          <Picker
+            selectedValue={userData ? userData.estado : 'Estado'}
+            onValueChange={(itemValue, itemIndex) =>
+              setUserData({...userData, estado: itemValue})
+            }
+            style={{width: 220, marginTop: -14}}>
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Estado"
+              enabled={false}
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Acre (AC)"
+              value="Acre"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Alagoas (AL)"
+              value="Alagoas"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Amapá (AP)"
+              value="Amapá"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Amazonas (AM)"
+              value="Amazonas"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Bahia (BA)"
+              value="Bahia"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Ceará (CE)"
+              value="Ceará"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Distrito Federal (DF)"
+              value="Distrito Federal"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Espírito Santo (ES)"
+              value="Espírito Santo"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Goiás (GO)"
+              value="Goiás"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Maranhão (MA)"
+              value="Maranhão"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Mato Grosso (MT)"
+              value="Mato Grosso"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Mato Grosso do Sul (MS)"
+              value="Mato Grosso do Sul"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Minas Gerais (MG)"
+              value="Minas Gerais"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Pará (PA)"
+              value="Pará"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Paraíba (PB)"
+              value="Paraíba"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Paraná (PR)"
+              value="Paraná"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Pernambuco (PE)"
+              value="Pernambuco"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Piauí (PI)"
+              value="Piauí"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Rio de Janeiro (RJ)"
+              value="Rio de Janeiro"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Rio Grande do Norte (RN)"
+              value="Rio Grande do Norte"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Rio Grande do Sul (RS)"
+              value="Rio Grande do Sul"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Rondônia (RO)"
+              value="Rondônia"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Roraima (RR)"
+              value="Roraima"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Santa Catarina (SC)"
+              value="Santa Catarina"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="São Paulo (SP)"
+              value="São Paulo"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Sergipe (SE)"
+              value="Sergipe"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Tocantins (TO)"
+              value="Tocantins"
+            />
+          </Picker>
+        </View>
         <View style={styles.action}>
           <Icon name="map-marker-outline" size={23} color="#009387" />
           <TextInput
@@ -296,6 +451,7 @@ const EditAtleta = ({navigation}) => {
             style={[styles.textInput, {marginTop: -32}]}
           />
         </View>
+
         <Image
           style={styles.ficha}
           source={require('../../assets/dados-icon.png')}
@@ -343,6 +499,39 @@ const EditAtleta = ({navigation}) => {
               style={styles.textInput}
             />
           </View>
+          {userData ? (
+            userData.idade < 18 ? (
+              <View style={styles.action}>
+                <TextInput
+                  placeholder="Email do responsável"
+                  placeholderTextColor="#666666"
+                  autoCorrect={false}
+                  value={userData ? userData.emailres : ''}
+                  onChangeText={txt =>
+                    setUserData({...userData, emailres: txt})
+                  }
+                  style={styles.textInput}
+                />
+              </View>
+            ) : null
+          ) : null}
+          {userData ? (
+            userData.idade < 18 ? (
+              <View style={styles.action}>
+                <TextInput
+                  placeholder="Telefone do responsável"
+                  placeholderTextColor="#666666"
+                  autoCorrect={false}
+                  value={userData ? userData.telefoneres : ''}
+                  onChangeText={txt =>
+                    setUserData({...userData, telefoneres: txt})
+                  }
+                  style={styles.textInput}
+                />
+              </View>
+            ) : null
+          ) : null}
+
           <View style={styles.action}>
             <TextInput
               placeholder="Clube Afiliado"

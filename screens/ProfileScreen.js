@@ -10,6 +10,7 @@ import {
   ImageBackground,
   Dimensions,
   Alert,
+  StatusBar,
 } from 'react-native';
 import {Avatar, Title, Caption} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -40,6 +41,7 @@ const ProfileScreen = ({navigation, route}) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor="#017970" />
       <ImageBackground
         source={require('../assets/background1.png')}
         style={{

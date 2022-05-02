@@ -17,6 +17,7 @@ import {useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import ContactUsScreen from '../screens/ContactUsScreen';
 
 const CustomDrawer = props => {
   const [data, setData] = useState([]);
@@ -69,23 +70,46 @@ const CustomDrawer = props => {
           <Text style={{color: '#fff', fontSize: 16.5, fontWeight: '500'}}>
             {data.nome}
           </Text>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={{color: '#fff', fontSize: 14, marginTop: 1}}>
-              {data.conta}
-            </Text>
-            <Ionicons
-              name="md-trophy"
-              size={16}
-              color="#fff"
-              style={{marginTop: 4, marginLeft: 3}}
-            />
-          </View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('EditProfileScreenStack')}>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={{color: '#fff', fontSize: 14, marginTop: 1}}>
+                {data.conta}
+              </Text>
+              <Ionicons
+                name="md-trophy"
+                size={16}
+                color="#fff"
+                style={{marginTop: 4, marginLeft: 3}}
+              />
+            </View>
+          </TouchableOpacity>
         </ImageBackground>
         <View style={{flex: 1, backgroundColor: '#fff', paddingTop: 9}}>
           <DrawerItemList {...props} />
         </View>
       </DrawerContentScrollView>
       <View style={{padding: 10, borderTopWidth: 1.2, borderTopColor: '#ccc'}}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('ContactUs')}
+          style={{paddingVertical: 15}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginLeft: 10,
+            }}>
+            <Ionicons name="megaphone-outline" size={22} />
+            <Text
+              style={{
+                fontSize: 14,
+                fontFamily: 'Roboto-Medium',
+                marginLeft: 5,
+              }}>
+              Contate-nos
+            </Text>
+          </View>
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={() => logout()}
           style={{paddingVertical: 15}}>

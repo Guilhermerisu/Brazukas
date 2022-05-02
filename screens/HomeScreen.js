@@ -10,6 +10,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import PostCard from '../components/PostCard';
@@ -272,6 +273,7 @@ const HomeScreen = ({navigation, item, route}) => {
   };
   return (
     <View style={{flex: 1}}>
+      <StatusBar backgroundColor="#017970" />
       {loading ? (
         <ScrollView
           style={{flex: 1, marginTop: 15}}
