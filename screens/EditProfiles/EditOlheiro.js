@@ -55,6 +55,7 @@ const EditOlheiro = ({navigation}) => {
       .doc(user.uid)
       .update({
         nome: userData.nome ? userData.nome : null,
+        genero: userData.genero ? userData.genero : null,
         emailCom: userData.emailCom ? userData.emailCom : null,
         telefone: userData.telefone ? userData.telefone : null,
         estado: userData.estado ? userData.estado : null,
@@ -240,6 +241,41 @@ const EditOlheiro = ({navigation}) => {
             onChangeText={txt => setUserData({...userData, nome: txt})}
             style={styles.textInput}
           />
+        </View>
+        <View style={styles.action}>
+          {userData ? (
+            userData.genero == 'masculino' ? (
+              <Icon name="gender-male" size={25} color="#009387" />
+            ) : userData.genero == 'feminino' ? (
+              <Icon name="gender-female" size={26} color="#009387" />
+            ) : (
+              <FontAwesome name="genderless" size={25} color="#009387" />
+            )
+          ) : (
+            <FontAwesome name="genderless" size={25} color="#009387" />
+          )}
+          <Picker
+            selectedValue={userData ? userData.genero : 'Gênero'}
+            onValueChange={(itemValue, itemIndex) =>
+              setUserData({...userData, genero: itemValue})
+            }
+            style={{width: 220, marginTop: -14}}>
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Gênero"
+              enabled={false}
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Masculino"
+              value="masculino"
+            />
+            <Picker.Item
+              style={{fontSize: 13.9}}
+              label="Feminino"
+              value="feminino"
+            />
+          </Picker>
         </View>
         <View style={styles.action}>
           <Feather name="mail" size={20} color="#009387" />
