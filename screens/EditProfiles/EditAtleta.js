@@ -254,7 +254,7 @@ const EditAtleta = ({navigation}) => {
             style={styles.textInput}
           />
         </View>
-        <View style={styles.action}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
           {userData ? (
             userData.genero == 'masculino' ? (
               <Icon name="gender-male" size={25} color="#009387" />
@@ -271,7 +271,7 @@ const EditAtleta = ({navigation}) => {
             onValueChange={(itemValue, itemIndex) =>
               setUserData({...userData, genero: itemValue})
             }
-            style={{width: 220, marginTop: -14}}
+            style={{width: 220, marginTop: 0}}
             dropdownIconColor="#009387">
             <Picker.Item
               style={{fontSize: 13.9}}
@@ -314,14 +314,14 @@ const EditAtleta = ({navigation}) => {
             style={styles.textInput}
           />
         </View>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Icon name="map-marker-outline" size={23} color="#009387" />
           <Picker
             selectedValue={userData ? userData.estado : 'Estado'}
             onValueChange={(itemValue, itemIndex) =>
               setUserData({...userData, estado: itemValue})
             }
-            style={{width: 220, marginTop: -14}}
+            style={{width: 220}}
             dropdownIconColor="#009387">
             <Picker.Item
               style={{fontSize: 13.9}}
@@ -725,7 +725,6 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
-    marginTop: Platform.OS === 'ios' ? 0 : -12,
     paddingLeft: 10,
     color: '#05375a',
   },
