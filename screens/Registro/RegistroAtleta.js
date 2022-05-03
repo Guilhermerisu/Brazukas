@@ -271,7 +271,8 @@ const RegistroAtleta = ({navigation}) => {
             onValueChange={(itemValue, itemIndex) =>
               setUserData({...userData, genero: itemValue})
             }
-            style={{width: 220, marginTop: -14}}>
+            style={{width: 220, marginTop: -14}}
+            dropdownIconColor="#009387">
             <Picker.Item
               style={{fontSize: 13.9}}
               label="Gênero"
@@ -320,7 +321,8 @@ const RegistroAtleta = ({navigation}) => {
             onValueChange={(itemValue, itemIndex) =>
               setUserData({...userData, estado: itemValue})
             }
-            style={{width: 220, marginTop: -14}}>
+            style={{width: 220, marginTop: -14}}
+            dropdownIconColor="#009387">
             <Picker.Item
               style={{fontSize: 13.9}}
               label="Estado"

@@ -1,4 +1,3 @@
-import {Input, Item, Label, ListItem, Body, Icon, CheckBox} from 'native-base';
 import React, {useContext, useState, useEffect} from 'react';
 import {
   Text,
@@ -17,6 +16,7 @@ import FormButton from '../components/FormButton';
 import {AuthContext} from '../navigation/AuthProvider';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState();
@@ -74,25 +74,24 @@ const LoginScreen = ({navigation}) => {
               Faça login com uma conta de terceiros
             </Text>
             <View style={styles.socialLoginView}>
-              <TouchableOpacity icon style={{}} rounded>
-                <Icon
-                  type="MaterialCommunityIcons"
+              <TouchableOpacity>
+                <MaterialCommunityIcons
                   size={30}
                   name="facebook"
                   onPress={() => fbLogin()}
                   style={{color: '#3b5998'}}
                 />
               </TouchableOpacity>
-              <TouchableOpacity icon style={{}} rounded>
-                <Icon
-                  type="MaterialCommunityIcons"
+              <TouchableOpacity>
+                <MaterialCommunityIcons
+                  size={30}
                   name="twitter"
                   style={{color: '#00acee'}}
                 />
               </TouchableOpacity>
-              <TouchableOpacity icon style={{}} rounded>
-                <Icon
-                  type="MaterialCommunityIcons"
+              <TouchableOpacity>
+                <MaterialCommunityIcons
+                  size={30}
                   name="google-plus"
                   onPress={() => googleLogin()}
                   style={{color: '#db4a39'}}

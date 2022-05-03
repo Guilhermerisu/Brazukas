@@ -1,4 +1,3 @@
-import {Input, Item, Label, ListItem, Body, Icon, CheckBox} from 'native-base';
 import React, {useContext, useState} from 'react';
 import {
   Text,
@@ -13,6 +12,7 @@ import {
 import Animated from 'react-native-reanimated';
 import * as Animatable from 'react-native-animatable';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
@@ -117,25 +117,24 @@ const SignupScreen = ({navigation}) => {
                   Faça login com uma conta de terceiros
                 </Text>
                 <View style={styles.socialLoginView}>
-                  <TouchableOpacity icon style={{}} rounded>
-                    <Icon
-                      type="MaterialCommunityIcons"
+                  <TouchableOpacity>
+                    <MaterialCommunityIcons
                       size={30}
                       name="facebook"
                       onPress={() => fbLogin()}
                       style={{color: '#3b5998'}}
                     />
                   </TouchableOpacity>
-                  <TouchableOpacity icon style={{}} rounded>
-                    <Icon
-                      type="MaterialCommunityIcons"
+                  <TouchableOpacity>
+                    <MaterialCommunityIcons
+                      size={30}
                       name="twitter"
                       style={{color: '#00acee'}}
                     />
                   </TouchableOpacity>
-                  <TouchableOpacity icon style={{}} rounded>
-                    <Icon
-                      type="MaterialCommunityIcons"
+                  <TouchableOpacity>
+                    <MaterialCommunityIcons
+                      size={30}
                       name="google-plus"
                       onPress={() => googleLogin()}
                       style={{color: '#db4a39'}}

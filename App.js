@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import Providers from './navigation';
 import RNBootSplash from 'react-native-bootsplash';
+import {NativeBaseProvider} from 'native-base';
 
 const App = () => {
   useEffect(() => {
