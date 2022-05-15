@@ -128,11 +128,13 @@ export const AuthProvider = ({children}) => {
               })
               .catch(error => {
                 console.log('Something went wrong with sign up: ', error);
+                Alert.alert(
+                  'Usuário inválido',
+                  'O Email inserido já está em uso',
+                );
               });
-            Alert.alert('Usuário inválido', 'O Email inserido já está em uso');
           } catch (e) {
             console.log(e);
-            Alert.alert('Usuário inválido', 'O Email inserido já está em uso');
           }
         },
         logout: async () => {

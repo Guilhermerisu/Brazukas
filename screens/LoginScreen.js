@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
+import firebase from '@react-native-firebase/app';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import {AuthContext} from '../navigation/AuthProvider';
@@ -58,9 +59,24 @@ const LoginScreen = ({navigation}) => {
                 iconType="lock"
                 secureTextEntry={true}
               />
-              <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
-                <Text style={[styles.navButtonText, {marginLeft: scale(165)}]}>
-                  Não tem uma conta?
+              <TouchableOpacity
+                onPress={() => {
+                  firebase
+                    .auth()
+                    .sendPasswordResetEmail(email)
+                    .catch(error => {
+                      Alert.alert(
+                        'Email inválido',
+                        'O email inserido não está registrado',
+                      );
+                    }),
+                    Alert.alert(
+                      'Email enviado',
+                      'Verifique seu email para redefinir a senha',
+                    );
+                }}>
+                <Text style={[styles.navButtonText, {marginLeft: scale(170)}]}>
+                  Esqueceu a senha?
                 </Text>
               </TouchableOpacity>
             </View>
@@ -70,7 +86,7 @@ const LoginScreen = ({navigation}) => {
             onPress={() => login(email, password)}
           />
           <View style={{flex: 1}}>
-            <Text style={{textAlign: 'center', marginTop: scale(60)}}>
+            <Text style={{textAlign: 'center', marginTop: scale(52)}}>
               Faça login com uma conta de terceiros
             </Text>
             <View style={styles.socialLoginView}>
@@ -98,6 +114,15 @@ const LoginScreen = ({navigation}) => {
                 />
               </TouchableOpacity>
             </View>
+            <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+              <Text
+                style={[
+                  styles.navButtonText,
+                  {alignSelf: 'center', marginTop: 20},
+                ]}>
+                Não tem uma conta?
+              </Text>
+            </TouchableOpacity>
           </View>
         </Animatable.View>
       </View>
