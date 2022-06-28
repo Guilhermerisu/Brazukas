@@ -50,7 +50,7 @@ const ContactScreen = ({navigation, route}) => {
         onChangeText={Assunto => setAssunto(Assunto)}
         backgroundColor="#fff"
         width="70%"
-        style={{alignSelf: 'center', textAlign: 'center'}}
+        style={{alignSelf: 'center', textAlign: 'center', height: 26}}
       />
 
       <TextInput

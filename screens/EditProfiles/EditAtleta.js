@@ -23,6 +23,8 @@ import firestore from '@react-native-firebase/firestore';
 import {AuthContext} from '../../navigation/AuthProvider';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import {Picker} from '@react-native-picker/picker';
+import DatePicker from 'react-native-datepicker';
+import {backgroundSize, borderRadius, justifyContent} from 'styled-system';
 
 const EditAtleta = ({navigation}) => {
   const {user, logout} = useContext(AuthContext);
@@ -73,6 +75,15 @@ const EditAtleta = ({navigation}) => {
         meta: userData.meta ? userData.meta : null,
         emailres: userData.emailres ? userData.emailres : null,
         telefoneres: userData.telefoneres ? userData.telefoneres : null,
+        testimage1: userData.testimage1 ? userData.testimage1 : null,
+        testimage2: userData.testimage2 ? userData.testimage2 : null,
+        testimage3: userData.testimage3 ? userData.testimage3 : null,
+        testimage4: userData.testimage4 ? userData.testimage4 : null,
+        datatest1: userData.datatest1 ? userData.datatest1 : null,
+        datatest2: userData.datatest2 ? userData.datatest2 : null,
+        datatest3: userData.datatest3 ? userData.datatest3 : null,
+        datatest4: userData.datatest4 ? userData.datatest4 : null,
+
         conta: 'Atleta',
         userImg: imgUrl,
       })
@@ -182,8 +193,81 @@ const EditAtleta = ({navigation}) => {
     });
   };
 
+  const takeTest1 = () => {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 300,
+      cropping: true,
+      compressImageQuality: 0.7,
+    }).then(testimage => {
+      setUserData({...userData, testimage1: testimage.path});
+    });
+  };
+  const takeTest2 = () => {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 300,
+      cropping: true,
+      compressImageQuality: 0.7,
+    }).then(testimage => {
+      setUserData({...userData, testimage2: testimage.path});
+    });
+  };
+  const takeTest3 = () => {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 300,
+      cropping: true,
+      compressImageQuality: 0.7,
+    }).then(testimage => {
+      setUserData({...userData, testimage3: testimage.path});
+    });
+  };
+  const takeTest4 = () => {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 300,
+      cropping: true,
+      compressImageQuality: 0.7,
+    }).then(testimage => {
+      setUserData({...userData, testimage4: testimage.path});
+    });
+  };
   const bs = React.createRef();
   const fall = new Animated.Value(1);
+
+  let color1;
+  {
+    userData
+      ? userData.testimage1
+        ? (color1 = '#009387')
+        : (color1 = 'red')
+      : null;
+  }
+  let color2;
+  {
+    userData
+      ? userData.testimage2
+        ? (color2 = '#009387')
+        : (color2 = 'red')
+      : null;
+  }
+  let color3;
+  {
+    userData
+      ? userData.testimage3
+        ? (color3 = '#009387')
+        : (color3 = 'red')
+      : null;
+  }
+  let color4;
+  {
+    userData
+      ? userData.testimage4
+        ? (color4 = '#009387')
+        : (color4 = 'red')
+      : null;
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -632,6 +716,166 @@ const EditAtleta = ({navigation}) => {
               style={styles.textInput}
             />
           </View>
+        </View>
+        <View
+          style={[
+            styles.box,
+            {
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+            },
+          ]}>
+          <Text style={{fontWeight: 'bold', color: color1}}>
+            Ecocardiograma
+          </Text>
+          <TouchableOpacity
+            onPress={takeTest1}
+            style={{
+              backgroundColor: '#009387',
+              borderRadius: 7,
+              flexDirection: 'row',
+              borderWidth: 2,
+              borderColor: '#009387',
+            }}>
+            <Icon name="camera" size={17} color="#fff" />
+            <Text style={{color: '#fff'}}>Anexar</Text>
+          </TouchableOpacity>
+          <DatePicker
+            format="DD/MM/YYYY"
+            date={userData ? userData.datatest1 : ''}
+            placeholder={
+              userData
+                ? userData.datatest1
+                  ? userData.datatest1
+                  : 'Data'
+                : null
+            }
+            style={{width: 120, marginRight: -30}}
+            iconSource={false}
+            onDateChange={date1 => setUserData({...userData, datatest1: date1})}
+          />
+        </View>
+        <View
+          style={[
+            styles.box,
+            {
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+            },
+          ]}>
+          <Text style={{fontWeight: 'bold', color: color2}}>
+            Eletrocardiograma
+          </Text>
+          <TouchableOpacity
+            onPress={takeTest2}
+            style={{
+              backgroundColor: '#009387',
+              borderRadius: 7,
+              flexDirection: 'row',
+              borderWidth: 2,
+              borderColor: '#009387',
+            }}>
+            <Icon name="camera" size={17} color="#fff" />
+            <Text style={{color: '#fff'}}>Anexar</Text>
+          </TouchableOpacity>
+          <DatePicker
+            format="DD/MM/YYYY"
+            date={userData ? userData.datatest2 : ''}
+            placeholder={
+              userData
+                ? userData.datatest2
+                  ? userData.datatest2
+                  : 'Data'
+                : null
+            }
+            style={{width: 120, marginRight: -30}}
+            iconSource={false}
+            onDateChange={date2 => setUserData({...userData, datatest2: date2})}
+          />
+        </View>
+        <View
+          style={[
+            styles.box,
+            {
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+            },
+          ]}>
+          <Text style={{fontWeight: 'bold', color: color3}}>
+            Teste de Esforço
+          </Text>
+          <TouchableOpacity
+            onPress={takeTest3}
+            style={{
+              backgroundColor: '#009387',
+              borderRadius: 7,
+              flexDirection: 'row',
+              borderWidth: 2,
+              borderColor: '#009387',
+            }}>
+            <Icon name="camera" size={17} color="#fff" />
+            <Text style={{color: '#fff'}}>Anexar</Text>
+          </TouchableOpacity>
+          <DatePicker
+            format="DD/MM/YYYY"
+            date={userData ? userData.datatest3 : ''}
+            placeholder={
+              userData
+                ? userData.datatest3
+                  ? userData.datatest3
+                  : 'Data'
+                : null
+            }
+            style={{width: 120, marginRight: -30}}
+            iconSource={false}
+            onDateChange={date3 => setUserData({...userData, datatest3: date3})}
+          />
+        </View>
+        <View
+          style={[
+            styles.box,
+            {
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+            },
+          ]}>
+          <Text style={{fontWeight: 'bold', color: color4}}>
+            Hemoglobina Glicada
+          </Text>
+          <TouchableOpacity
+            onPress={takeTest4}
+            style={{
+              backgroundColor: '#009387',
+              borderRadius: 7,
+              flexDirection: 'row',
+              borderWidth: 2,
+              borderColor: '#009387',
+            }}>
+            <Icon name="camera" size={17} color="#fff" />
+            <Text style={{color: '#fff'}}>Anexar</Text>
+          </TouchableOpacity>
+          <DatePicker
+            format="DD/MM/YYYY"
+            date={userData ? userData.datatest4 : ''}
+            placeholder={
+              userData
+                ? userData.datatest4
+                  ? userData.datatest4
+                  : 'Data'
+                : null
+            }
+            style={{width: 120, marginRight: -30}}
+            iconSource={false}
+            onDateChange={date4 => setUserData({...userData, datatest4: date4})}
+          />
         </View>
         {uploading ? (
           <View style={{justifyContent: 'center', alignItems: 'center'}}>

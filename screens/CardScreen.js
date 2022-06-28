@@ -118,6 +118,81 @@ const CardScreen = ({route, navigation}) => {
             <Text style={styles.item}>Meta/Sonho: </Text>
             <Text style={{width: 199}}>{userData ? userData.meta : null}</Text>
           </View>
+          <View style={[styles.divider, {marginTop: 2}]}></View>
+          <Text></Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              marginTop: -10,
+            }}>
+            <Text
+              style={[
+                styles.item,
+                userData
+                  ? userData.testimage1
+                    ? {color: '#009387'}
+                    : {color: 'red'}
+                  : null,
+              ]}>
+              Ecocardiograma{' '}
+            </Text>
+            <Text>{userData ? userData.datatest1 : null}</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}>
+            <Text
+              style={[
+                styles.item,
+                userData
+                  ? userData.testimage2
+                    ? {color: '#009387'}
+                    : {color: 'red'}
+                  : null,
+              ]}>
+              Eletrocardiograma{' '}
+            </Text>
+            <Text>{userData ? userData.datatest2 : null}</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}>
+            <Text
+              style={[
+                styles.item,
+                userData
+                  ? userData.testimage3
+                    ? {color: '#009387'}
+                    : {color: 'red'}
+                  : null,
+              ]}>
+              Teste de Esforço{' '}
+            </Text>
+            <Text>{userData ? userData.datatest3 : null}</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}>
+            <Text
+              style={[
+                styles.item,
+                userData
+                  ? userData.testimage4
+                    ? {color: '#009387'}
+                    : {color: 'red'}
+                  : null,
+              ]}>
+              Hemoglobina Glicada{' '}
+            </Text>
+            <Text>{userData ? userData.datatest4 : null}</Text>
+          </View>
         </View>
       </View>
     </View>
