@@ -17,6 +17,8 @@ import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import {AuthContext} from '../navigation/AuthProvider';
 import {createStackNavigator} from '@react-navigation/stack';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import axios from 'axios';
+import {Picker} from '@react-native-picker/picker';
 
 const Stack = createStackNavigator();
 
@@ -45,10 +47,18 @@ export const queryUsersByName = nome =>
 const SearchScreen = ({navigation}) => {
   const [textInput, setTextInput] = useState('');
   const [searchUsers, setSearchUsers] = useState([]);
-
+  const [city, setCity] = useState('');
   useEffect(() => {
     queryUsersByName(textInput).then(setSearchUsers);
   }, [textInput]);
+
+  useEffect(() => {
+    axios
+      .get('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
+      .then(response => {
+        setCity(response.data);
+      });
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -86,6 +96,23 @@ const SearchScreen = ({navigation}) => {
         renderItem={({item}) => <SearchUserItem item={item} />}
         keyExtractor={item => item.id}
       />
+      <View>
+        <Picker
+          selectedValue={''}
+          style={{width: 190, marginTop: 0}}
+          dropdownIconColor="#009387">
+          <Picker.Item style={{fontSize: 13.9}} label="Estado" value={null} />
+          {city
+            ? city.map(cities => (
+                <Picker.Item
+                  label={cities.nome}
+                  value={cities.nome}
+                  key={cities.id}
+                />
+              ))
+            : null}
+        </Picker>
+      </View>
     </SafeAreaView>
   );
 };

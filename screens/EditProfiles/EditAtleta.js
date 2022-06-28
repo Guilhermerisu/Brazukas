@@ -24,7 +24,7 @@ import {AuthContext} from '../../navigation/AuthProvider';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import {Picker} from '@react-native-picker/picker';
 import DatePicker from 'react-native-datepicker';
-import {backgroundSize, borderRadius, justifyContent} from 'styled-system';
+import axios from 'axios';
 
 const EditAtleta = ({navigation}) => {
   const {user, logout} = useContext(AuthContext);
@@ -32,6 +32,8 @@ const EditAtleta = ({navigation}) => {
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
   const [userData, setUserData] = useState(null);
+  const [city, setCity] = useState('');
+  const [cidade, setCidade] = useState('');
 
   const getUser = async () => {
     const currentUser = await firestore()
@@ -169,7 +171,24 @@ const EditAtleta = ({navigation}) => {
 
   useEffect(() => {
     getUser();
+    axios
+      .get('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
+      .then(response => {
+        setCity(response.data);
+      });
   }, []);
+
+  useEffect(() => {
+    userData
+      ? axios
+          .get(
+            `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${userData.estado}/municipios`,
+          )
+          .then(response => {
+            setCidade(response.data);
+          })
+      : null;
+  }, [userData ? userData.estado : null]);
 
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
@@ -407,158 +426,40 @@ const EditAtleta = ({navigation}) => {
             }
             style={{width: 220}}
             dropdownIconColor="#009387">
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Estado"
-              enabled={false}
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Acre (AC)"
-              value="Acre"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Alagoas (AL)"
-              value="Alagoas"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Amapá (AP)"
-              value="Amapá"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Amazonas (AM)"
-              value="Amazonas"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Bahia (BA)"
-              value="Bahia"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Ceará (CE)"
-              value="Ceará"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Distrito Federal (DF)"
-              value="Distrito Federal"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Espírito Santo (ES)"
-              value="Espírito Santo"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Goiás (GO)"
-              value="Goiás"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Maranhão (MA)"
-              value="Maranhão"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Mato Grosso (MT)"
-              value="Mato Grosso"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Mato Grosso do Sul (MS)"
-              value="Mato Grosso do Sul"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Minas Gerais (MG)"
-              value="Minas Gerais"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Pará (PA)"
-              value="Pará"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Paraíba (PB)"
-              value="Paraíba"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Paraná (PR)"
-              value="Paraná"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Pernambuco (PE)"
-              value="Pernambuco"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Piauí (PI)"
-              value="Piauí"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Rio de Janeiro (RJ)"
-              value="Rio de Janeiro"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Rio Grande do Norte (RN)"
-              value="Rio Grande do Norte"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Rio Grande do Sul (RS)"
-              value="Rio Grande do Sul"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Rondônia (RO)"
-              value="Rondônia"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Roraima (RR)"
-              value="Roraima"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Santa Catarina (SC)"
-              value="Santa Catarina"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="São Paulo (SP)"
-              value="São Paulo"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Sergipe (SE)"
-              value="Sergipe"
-            />
-            <Picker.Item
-              style={{fontSize: 13.9}}
-              label="Tocantins (TO)"
-              value="Tocantins"
-            />
+            <Picker.Item style={{fontSize: 13.9}} label="Estado" value={null} />
+            {city
+              ? city.map(cities => (
+                  <Picker.Item
+                    label={cities.nome}
+                    value={cities.sigla}
+                    key={cities.id}
+                    style={{fontSize: 13.9}}
+                  />
+                ))
+              : null}
           </Picker>
         </View>
-        <View style={styles.action}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Icon name="map-marker-outline" size={23} color="#009387" />
-          <TextInput
-            placeholder="Cidade"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            value={userData ? userData.cidade : ''}
-            onChangeText={txt => setUserData({...userData, cidade: txt})}
-            style={styles.textInput}
-          />
+          <Picker
+            selectedValue={userData ? userData.cidade : 'Cidade'}
+            onValueChange={(itemValue, itemIndex) =>
+              setUserData({...userData, cidade: itemValue})
+            }
+            style={{width: 220}}
+            dropdownIconColor="#009387">
+            <Picker.Item style={{fontSize: 13.9}} label="Cidade" value={null} />
+            {cidade
+              ? cidade.map(cities => (
+                  <Picker.Item
+                    label={cities.nome}
+                    value={cities.nome}
+                    key={cities.id}
+                    style={{fontSize: 13.9}}
+                  />
+                ))
+              : null}
+          </Picker>
         </View>
         <View style={styles.action}>
           <Icon name="pencil-box-outline" size={25} color="#009387" />
@@ -570,7 +471,7 @@ const EditAtleta = ({navigation}) => {
             numberOfLines={4}
             value={userData ? userData.sobre : ''}
             onChangeText={txt => setUserData({...userData, sobre: txt})}
-            style={[styles.textInput, {marginTop: -32}]}
+            style={[styles.textInput, {marginTop: -25}]}
           />
         </View>
 
@@ -745,6 +646,7 @@ const EditAtleta = ({navigation}) => {
           <DatePicker
             format="DD/MM/YYYY"
             date={userData ? userData.datatest1 : ''}
+            showIcon={false}
             placeholder={
               userData
                 ? userData.datatest1
@@ -752,8 +654,8 @@ const EditAtleta = ({navigation}) => {
                   : 'Data'
                 : null
             }
-            style={{width: 120, marginRight: -30}}
-            iconSource={false}
+            customStyles={{dateInput: {borderWidth: 0}}}
+            style={{width: 125, marginRight: -17}}
             onDateChange={date1 => setUserData({...userData, datatest1: date1})}
           />
         </View>
@@ -785,6 +687,7 @@ const EditAtleta = ({navigation}) => {
           <DatePicker
             format="DD/MM/YYYY"
             date={userData ? userData.datatest2 : ''}
+            customStyles={{dateInput: {borderWidth: 0}}}
             placeholder={
               userData
                 ? userData.datatest2
@@ -792,8 +695,8 @@ const EditAtleta = ({navigation}) => {
                   : 'Data'
                 : null
             }
-            style={{width: 120, marginRight: -30}}
-            iconSource={false}
+            style={{width: 125, marginRight: -17}}
+            showIcon={false}
             onDateChange={date2 => setUserData({...userData, datatest2: date2})}
           />
         </View>
@@ -825,6 +728,7 @@ const EditAtleta = ({navigation}) => {
           <DatePicker
             format="DD/MM/YYYY"
             date={userData ? userData.datatest3 : ''}
+            customStyles={{dateInput: {borderWidth: 0}}}
             placeholder={
               userData
                 ? userData.datatest3
@@ -832,8 +736,8 @@ const EditAtleta = ({navigation}) => {
                   : 'Data'
                 : null
             }
-            style={{width: 120, marginRight: -30}}
-            iconSource={false}
+            style={{width: 125, marginRight: -17}}
+            showIcon={false}
             onDateChange={date3 => setUserData({...userData, datatest3: date3})}
           />
         </View>
@@ -865,6 +769,7 @@ const EditAtleta = ({navigation}) => {
           <DatePicker
             format="DD/MM/YYYY"
             date={userData ? userData.datatest4 : ''}
+            customStyles={{dateInput: {borderWidth: 0}}}
             placeholder={
               userData
                 ? userData.datatest4
@@ -872,8 +777,8 @@ const EditAtleta = ({navigation}) => {
                   : 'Data'
                 : null
             }
-            style={{width: 120, marginRight: -30}}
-            iconSource={false}
+            style={{width: 125, marginRight: -17}}
+            showIcon={false}
             onDateChange={date4 => setUserData({...userData, datatest4: date4})}
           />
         </View>
