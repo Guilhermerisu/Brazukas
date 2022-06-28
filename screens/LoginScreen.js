@@ -20,7 +20,7 @@ import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const LoginScreen = ({navigation}) => {
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState(null);
   const [password, setPassword] = useState();
   const {login, googleLogin, fbLogin} = useContext(AuthContext);
 
@@ -59,22 +59,28 @@ const LoginScreen = ({navigation}) => {
                 iconType="lock"
                 secureTextEntry={true}
               />
-              <TouchableOpacity
+              <TouchableOpacity 
                 onPress={() => {
-                  firebase
+                  { email == null ? 
+                    Alert.alert(
+                      'Email inválido',
+                      'Insira um email para redefinir a senha',
+                    )
+                    :
+                    firebase
                     .auth()
                     .sendPasswordResetEmail(email)
                     .catch(error => {
                       Alert.alert(
                         'Email inválido',
                         'O email inserido não está registrado',
-                      );
-                    }),
+                      )
+                    }). then (
                     Alert.alert(
                       'Email enviado',
                       'Verifique seu email para redefinir a senha',
-                    );
-                }}>
+   )) }  
+                }}> 
                 <Text style={[styles.navButtonText, {marginLeft: scale(170)}]}>
                   Esqueceu a senha?
                 </Text>
@@ -83,7 +89,13 @@ const LoginScreen = ({navigation}) => {
           </View>
           <FormButton
             buttonTitle="Entrar"
-            onPress={() => login(email, password)}
+            onPress={() => { 
+              email == null ?
+              Alert.alert(
+                'Email/Senha inválidos',
+                'Insira o email e a senha para fazer login',
+              ) 
+              : login(email, password) }}
           />
           <View style={{flex: 1}}>
             <Text style={{textAlign: 'center', marginTop: scale(52)}}>
