@@ -61,7 +61,10 @@ const CardScreen = ({route, navigation}) => {
             <Text>{userData ? userData.idade : null}</Text>
             <View style={styles.dividerH}></View>
             <Text style={styles.item}>Cidade: </Text>
-            <Text>{userData ? userData.cidade : null}</Text>
+            <Text>
+              {userData ? userData.cidade : null} (
+              {userData ? userData.estado : null})
+            </Text>
           </View>
           <View style={[styles.divider, {marginTop: 2}]}></View>
           <View style={{flexDirection: 'row', justifyContent: 'center'}}>
